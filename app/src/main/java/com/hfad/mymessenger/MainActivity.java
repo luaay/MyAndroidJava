@@ -18,12 +18,15 @@ public class MainActivity extends Activity {
     }
     public void onSendMessage(View view){
         EditText messageView = (EditText)findViewById(R.id.message);
-        String messageText = messageView.toString();
+        String messageText = messageView.getText().toString();
 
-        Intent intent = new Intent(this,ReceiveMessageActivity.class);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, messageText);
 
-        intent.putExtra(ReceiveMessageActivity.EXTRA_MESSAGE,messageText);
-        startActivity(intent);
+        String chooserTitle = getString(R.string.chooser);
+        Intent chooseIntent = Intent.createChooser(intent,chooserTitle);
+        startActivity(chooseIntent);
 
 
     }
